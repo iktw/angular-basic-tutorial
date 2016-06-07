@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>UserManagement</title>
+</head>
+
+<body ng-app="myfirstapp">
+    <div ng-controller="UserController">
+        <form name="AddNewUserForm" ng-submit="addUser();">
+          <h4>Add new user</h4>
+          <input type="text" placeholder="Enter first name" ng-model="newUser.firstName" required><br/>
+          <input type="text" placeholder="Enter last name" ng-model="newUser.lastName" required><br/>
+          <input type="text" placeholder="Enter job title" ng-model="newUser.jobTitle" required><br/>
+          <input type="number" placeholder="Enter age" ng-model="newUser.age" required><br/>
+          <button type="submit" ng-disabled="AddNewUserForm.$invalid">Add user</button>
+        </form>
+
+        <br/><br/>
+
+        <div ng-repeat="user in users">
+            <user-details></user-details>
+        </div>
+    </div>
+</body>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
+<script src="./tutorial.js"></script>
+
+</html>
