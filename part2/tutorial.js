@@ -1,8 +1,8 @@
 var app = angular.module('postapp', []);
 
 app.controller('PostListCtrl', function($scope, PostService) {
-
     $scope.notifyMessage = "Loading posts...";
+    $scope.newPost = {};
 
     PostService.getPostList()
         .then(function(response) {
@@ -11,6 +11,19 @@ app.controller('PostListCtrl', function($scope, PostService) {
         }, function(errorResponse) {
             $scope.notifyMessage = "Could not load posts";
         });
+
+    $scope.createPost = function() {
+        $scope.notifyMessage = "Trying to create article...";
+
+        PostService.createPost($scope.newPost)
+            .then(function(response) {
+                $scope.posts.unshift(response.data);
+                $scope.notifyMessage = "Successfully created post.";
+                $scope.newPost = {};
+            }, function(errorResponse) {
+                $scope.notifyMessage = "Could not create post";
+            });
+    };
 
     $scope.deletePost = function(post) {
         $scope.notifyMessage = "Will try to delete post #" + post.id;
@@ -34,6 +47,9 @@ app.service('PostService', function($http) {
         deletePost: function(id) {
             var url = "http://jsonplaceholder.typicode.com/posts/" + id;
             return $http.delete(url);
+        },
+        createPost: function(data) {
+            return $http.post("http://jsonplaceholder.typicode.com/posts/", data);
         }
     };
 });
