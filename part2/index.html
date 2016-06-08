@@ -14,9 +14,28 @@
                     <h1 class="page-header text-center">
                         Welcome to PostApp
                     </h1>
+
+                    <div class="panel panel-success">
+                        <div class="panel-heading">Create new post</div>
+                        <div class="panel-body">
+                            <form name="CreatePostForm" ng-submit="createPost();">
+                                <div class="form-group">
+                                    <label for="inputTitle">Title</label>
+                                    <input type="text" class="form-control" id="inputTitle" placeholder="Title" ng-model="newPost.title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="textBody">Body</label>
+                                    <textarea class="form form-control" id="textBody" ng-model="newPost.body" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success" ng-disabled="CreatePostForm.$invalid">Create article</button>
+                            </form>
+                        </div>
+                    </div>
+
                     <div class="alert alert-info text-center" ng-if="notifyMessage">
                         {{ notifyMessage }}
                     </div>
+
                     <div class="panel panel-default" ng-repeat="post in posts">
                         <div class="panel-heading">
                             {{ post.title }}
